@@ -1,13 +1,15 @@
 import type { ReactNode } from "react";
+import "./globals.css";
 
-export const metadata = { title: "BetterCMS Starter", description: "Headless chain reference app" };
+export const metadata = {
+  title: "Acme — Marketing Starter",
+  description: "A polished marketing site powered by BetterCMS.",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: "system-ui, sans-serif", maxWidth: 720, margin: "3rem auto", padding: "0 1rem" }}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

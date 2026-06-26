@@ -1,37 +1,48 @@
-# BetterCMS Starter (Next.js)
+# BetterCMS Marketing Starter (Next.js)
 
-Reference app that proves the BetterCMS headless chain end-to-end (FLO-95):
+The **Next.js** starter for the BetterCMS *Marketing Starter* template: a polished marketing
+site rendered entirely from a BetterCMS project.
 
-**model + reference field → entries → publish → delivery API → reference hydration → SSR render.**
+- **Home / About / Contact** — CMS pages rendered from their block tree with `<BcmsBlocks>`.
+  The Contact page carries a real **form block**, so submissions land in your project's inbox.
+- **Blog** and **Case Studies** — content collections, listed and rendered from the Delivery API.
 
-A Blog Post model carries an `author` **reference**. The `[slug]` page fetches a post
-with `depth: 1`, so the delivery API hydrates the referenced Author in a single request
-(no N+1) and the page renders the author's name/bio inline.
+Create a site from this template in the BetterCMS dashboard (pick *Marketing Starter* →
+*Next.js*) and it's deployed and wired automatically. Or run it locally below.
 
-## Run the app
+## The slug contract
+
+This site reads these slugs from the CMS — they match the template's seeded content. Keep them in
+sync if you rename models/pages (and mirror changes in `bettercms-starter-astro`):
+
+| Kind  | Slugs |
+|-------|-------|
+| Pages | `home`, `about`, `contact` |
+| Models| `blog-post`, `case-study`, `author` |
+
+## Run locally
 
 ```bash
-cp .env.example .env.local   # set BETTERCMS_WORKSPACE + BETTERCMS_API_KEY (content:read)
+cp .env.example .env.local        # set BETTERCMS_WORKSPACE + BETTERCMS_API_KEY (content:read)
 npm install
-npm run dev                  # http://localhost:3000  → blog index → /blog/<slug>
+npm run fetch-content             # writes bcms-content.json (pages, forms, entries)
+npm run dev                       # http://localhost:3000
 ```
 
-Assumes the workspace has a `blog-post` model (override with `BETTERCMS_BLOG_MODEL`)
-whose entries have an `author` reference to an `author` model.
+This is a **static** site (`output: "export"`): every page, entry, and the contact form render
+from `bcms-content.json`. Regenerate it with `npm run fetch-content` after editing content. On
+BetterCMS hosting the deploy Action generates `bcms-content.json` for you before each build, then
+serves the static `out/`.
 
-## The validation gate (integration test)
+## Integration test
 
-`test/chain.integration.test.ts` is the **automated** version of the gate — it
-provisions its own model/entries via the Management API, publishes, fetches through the
-live delivery API, asserts the Author reference is hydrated at `depth=1` (and is a raw
-id at `depth=0`), then tears everything down. No fixtures to maintain, no residue.
+`test/chain.integration.test.ts` provisions its own model/entries via the Management API,
+publishes, fetches through the live Delivery API, asserts reference hydration at `depth=1`, then
+tears everything down.
 
 ```bash
-# needs a content:manage key (provisions + cleans up); skipped if unset
 BETTERCMS_API_URL=https://api.bettercms.ai \
 BETTERCMS_WORKSPACE=<slug> \
 BETTERCMS_MGMT_KEY=bcms_xxx \
 npm run test:integration
 ```
-
-Wire those three env vars into CI to make this a real merge gate.

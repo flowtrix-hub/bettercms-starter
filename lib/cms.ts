@@ -1,32 +1,32 @@
-import { createBetterCMS } from "@betttercms/next";
+/** Field shapes seeded by the "Marketing Starter" template. Image fields are `{ url, alt }`;
+ *  richtext fields are `{ html }`; references hydrate to the nested entry at depth >= 1. */
+export type Image = { url: string; alt?: string };
+export type RichText = { html: string };
 
-const apiBase = process.env.BETTERCMS_API_URL ?? "https://api.bettercms.ai";
+export type Author = { name: string; role?: string; bio?: string; avatar?: Image };
+/** A depth>=1 hydrated reference: the nested entry in raw delivery shape (`data`). */
+export type HydratedAuthor = { slug: string; data?: Author };
 
-/**
- * The one CMS client the app reads through. Workspace + delivery key come from env;
- * `revalidate` sets the default ISR window so published edits appear without a redeploy.
- * `baseUrl` is the full delivery base (the SDK appends `/:workspace/...`).
- */
-export const cms = createBetterCMS<{ "blog-post": BlogPostFields }>({
-  workspace: process.env.BETTERCMS_WORKSPACE!,
-  apiKey: process.env.BETTERCMS_API_KEY,
-  baseUrl: `${apiBase}/api/v1/delivery`,
-  revalidate: 60,
-});
+export type BlogPostFields = {
+  title: string;
+  excerpt?: string;
+  coverImage?: Image;
+  body?: RichText;
+  author?: HydratedAuthor | string;
+  publishedDate?: string;
+};
 
-export type Author = { name: string; bio?: string };
+export type CaseStudyFields = {
+  title: string;
+  client?: string;
+  summary?: string;
+  coverImage?: Image;
+  body?: RichText;
+  result?: string;
+};
 
-/**
- * A hydrated reference is the nested referenced entry. Read its data defensively:
- * the adapter normalizes a top-level entry's `data` → `fields`, but a nested hydrated
- * ref arrives in the raw delivery shape (`data`), so we accept either.
- */
-export type HydratedAuthor = { slug: string; fields?: Author; data?: Author };
-
-/** Blog Post field shape. `author` is a raw id at depth 0, hydrated at depth >= 1. */
-export type BlogPostFields = { title: string; author?: HydratedAuthor | string };
-
+/** Resolve a hydrated author reference (id string at depth 0 → null). */
 export function authorData(author: BlogPostFields["author"]): Author | null {
   if (!author || typeof author === "string") return null;
-  return author.fields ?? author.data ?? null;
+  return author.data ?? null;
 }

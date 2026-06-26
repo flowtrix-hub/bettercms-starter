@@ -1,18 +1,19 @@
 {
   "name": "bettercms-starter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Reference Next.js starter validating the BetterCMS headless chain (model → entry → reference → publish → delivery → SSR render). FLO-95.",
+  "description": "BetterCMS Marketing Starter (Next.js) — Home, About, Contact (with form), Blog, and Case Studies, rendered from a BetterCMS project.",
   "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "fetch-content": "node scripts/fetch-content.mjs",
     "test:integration": "vitest run"
   },
   "dependencies": {
-    "@betttercms/next": "^0.5.0",
-    "@betttercms/sdk": "^1.5.0",
+    "@betttercms/next": "^0.5.2",
+    "@betttercms/sdk": "^1.6.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

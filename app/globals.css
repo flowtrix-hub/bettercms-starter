@@ -1,0 +1,156 @@
+/* Marketing Starter — the site owns the look. Styles the `bcms-*` classes that
+   <BcmsBlocks>/<BcmsForm> emit, plus the blog/case-study route chrome. One file,
+   CSS variables for theming — no build step beyond Next's own. */
+
+:root {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --muted-bg: #f8fafc;
+  --border: #e2e8f0;
+  --primary: #4f46e5;
+  --primary-fg: #ffffff;
+  --radius: 12px;
+  --maxw: 1100px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+
+/* ── Page body (marketing pages: Home / About / Contact) ────────────────── */
+
+.page-body { padding: 3rem 1.25rem 4rem; }
+.page-body > .bcms-block--heading:first-child { margin-top: 0; }
+.page-body .bcms-block--columns { margin: 2rem 0; }
+
+/* ── Blocks ─────────────────────────────────────────────────────────────── */
+
+.bcms-block--section { padding: 4rem 1.25rem; }
+.bcms-block--section > div { width: 100%; }
+
+.bcms-block--heading { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 0.75rem; }
+h1.bcms-block--heading { font-size: clamp(2rem, 5vw, 3.25rem); }
+h2.bcms-block--heading { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+h3.bcms-block--heading { font-size: 1.25rem; }
+
+.bcms-block--text { color: var(--fg); margin: 0 0 1rem; }
+.bcms-block--text p { margin: 0 0 1rem; }
+
+.bcms-block--image { margin: 1.5rem auto; max-width: var(--maxw); }
+.bcms-block--image img { border-radius: var(--radius); width: 100%; }
+.bcms-block--image figcaption { color: var(--muted); font-size: 0.875rem; text-align: center; margin-top: 0.5rem; }
+
+.bcms-block--columns { max-width: var(--maxw); margin: 0 auto; }
+.bcms-column { min-width: 0; }
+
+.bcms-block--button,
+.bcms-button {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.05s ease, opacity 0.15s ease;
+}
+.bcms-button--primary,
+.bcms-block--button.bcms-button--primary { background: var(--primary); color: var(--primary-fg); }
+.bcms-button--secondary,
+.bcms-block--button.bcms-button--secondary { background: var(--muted-bg); color: var(--fg); border: 1px solid var(--border); }
+.bcms-button:hover { text-decoration: none; opacity: 0.92; }
+.bcms-button:active { transform: translateY(1px); }
+
+/* ── Navbar / Footer ────────────────────────────────────────────────────── */
+
+.bcms-block--navbar {
+  display: flex; align-items: center; gap: 1.5rem;
+  max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem;
+}
+.bcms-navbar-logo img { height: 32px; width: auto; border-radius: 6px; }
+.bcms-navbar-links { display: flex; gap: 1.25rem; margin-left: auto; }
+.bcms-navbar-links a { color: var(--fg); font-weight: 500; }
+
+.bcms-block--footer { border-top: 1px solid var(--border); background: var(--muted-bg); margin-top: 4rem; }
+.bcms-footer-cols {
+  display: flex; flex-wrap: wrap; gap: 3rem;
+  max-width: var(--maxw); margin: 0 auto; padding: 3rem 1.25rem 1.5rem;
+}
+.bcms-footer-col h4 { margin: 0 0 0.75rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.bcms-footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.bcms-footer-col a { color: var(--fg); }
+.bcms-footer-copy { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem 2.5rem; color: var(--muted); font-size: 0.875rem; }
+
+/* ── Form ───────────────────────────────────────────────────────────────── */
+
+.bcms-block--form { max-width: 540px; margin: 1.5rem auto 0; }
+.bcms-field { display: block; margin: 0 0 1rem; }
+.bcms-field label { font-weight: 600; font-size: 0.9rem; }
+.bcms-field input,
+.bcms-field textarea,
+.bcms-field select {
+  width: 100%; margin-top: 0.35rem; padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border); border-radius: 10px; font: inherit; color: var(--fg); background: #fff;
+}
+.bcms-field input:focus,
+.bcms-field textarea:focus,
+.bcms-field select:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+.bcms-field textarea { min-height: 130px; resize: vertical; }
+.bcms-field--checkbox { display: flex; align-items: flex-start; gap: 0.5rem; font-weight: 500; }
+.bcms-field--checkbox input { width: auto; margin-top: 0.2rem; }
+.bcms-field-error { display: block; color: #dc2626; font-size: 0.85rem; margin-top: 0.25rem; }
+.bcms-block--form button[type="submit"] {
+  background: var(--primary); color: var(--primary-fg); border: 0; cursor: pointer;
+  padding: 0.75rem 1.5rem; border-radius: 999px; font: inherit; font-weight: 600; width: 100%;
+}
+.bcms-block--form button[type="submit"]:disabled { opacity: 0.6; cursor: progress; }
+.bcms-form-status { margin-top: 0.85rem; padding: 0.65rem 0.85rem; border-radius: 10px; font-size: 0.9rem; }
+.bcms-form-status--success { background: #ecfdf5; color: #047857; }
+.bcms-form-status--error { background: #fef2f2; color: #b91c1c; }
+
+/* ── Blog / Case Study route chrome ─────────────────────────────────────── */
+
+.site-nav {
+  display: flex; align-items: center; gap: 1.25rem;
+  max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+}
+.site-nav .brand { font-weight: 700; color: var(--fg); }
+.site-nav .links { display: flex; gap: 1.25rem; margin-left: auto; }
+.site-nav .links a { color: var(--fg); font-weight: 500; }
+
+.page-head { padding: 3rem 0 1rem; }
+.page-head h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+.page-head p { color: var(--muted); margin: 0; }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding: 2rem 0 4rem; }
+.card {
+  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: #fff;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.card:hover { box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08); transform: translateY(-2px); }
+.card a { color: inherit; text-decoration: none; display: block; }
+.card .thumb { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+.card .body { padding: 1.1rem 1.2rem 1.4rem; }
+.card .eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); font-weight: 600; }
+.card h3 { margin: 0.35rem 0 0.5rem; font-size: 1.15rem; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.article { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+.article .cover { border-radius: var(--radius); margin: 1.5rem 0; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.article h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+.article .byline { color: var(--muted); margin: 0 0 1rem; }
+.article .prose { font-size: 1.05rem; }
+.article .prose h2 { margin-top: 2rem; font-size: 1.4rem; }
+.back-link { display: inline-block; margin-bottom: 1rem; color: var(--muted); font-size: 0.9rem; }

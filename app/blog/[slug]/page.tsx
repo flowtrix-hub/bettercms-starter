@@ -4,6 +4,7 @@ import { listEntries, getEntry } from "../../../lib/content";
 import { authorData, type BlogPostFields } from "../../../lib/cms";
 import { SiteChrome } from "../../../components/SiteChrome";
 
+export const dynamicParams = false;
 export function generateStaticParams() {
   return listEntries<BlogPostFields>("blog-post").map((e) => ({ slug: e.slug }));
 }

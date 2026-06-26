@@ -4,6 +4,7 @@ import { listEntries, getEntry } from "../../../lib/content";
 import type { CaseStudyFields } from "../../../lib/cms";
 import { SiteChrome } from "../../../components/SiteChrome";
 
+export const dynamicParams = false;
 export function generateStaticParams() {
   return listEntries<CaseStudyFields>("case-study").map((e) => ({ slug: e.slug }));
 }

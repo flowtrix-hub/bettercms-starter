@@ -14,7 +14,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <>
       <nav className="site-nav">
-        <Link className="brand" href="/">Acme</Link>
+        <Link className="brand" href="/">Acme<span className="dot">.</span></Link>
         <div className="links">
           {NAV.map((l) => (
             <Link key={l.href} href={l.href}>{l.label}</Link>
@@ -23,8 +23,29 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         </div>
       </nav>
       {children}
-      <footer className="bcms-block--footer">
-        <p className="bcms-footer-copy">© Acme, Inc. Built with BetterCMS.</p>
+      <footer className="site-footer">
+        <div className="site-footer-cols">
+          <div className="site-footer-brand">
+            <Link className="brand" href="/">Acme<span className="dot">.</span></Link>
+            <p>Ship structured content faster. A marketing starter powered by BetterCMS.</p>
+          </div>
+          <div className="site-footer-col">
+            <h4>Explore</h4>
+            <ul>
+              {NAV.map((l) => (
+                <li key={l.href}><Link href={l.href}>{l.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div className="site-footer-col">
+            <h4>Get started</h4>
+            <ul>
+              <li><Link href="/contact">Contact</Link></li>
+              <li><a href="https://bettercms.ai" target="_blank" rel="noreferrer">BetterCMS</a></li>
+            </ul>
+          </div>
+        </div>
+        <p className="site-footer-copy">© {new Date().getFullYear()} Acme, Inc. Built with BetterCMS.</p>
       </footer>
     </>
   );

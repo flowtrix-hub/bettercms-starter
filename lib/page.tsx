@@ -11,7 +11,7 @@ export function CmsPage({ slug }: { slug: string }) {
   const { forms, turnstileSiteKey } = readForms();
   return (
     <SiteChrome>
-      <main className="container page-body">
+      <main className="page-body">
         {page ? (
           <BcmsBlocks blocks={page.blocks} forms={forms} turnstileSiteKey={turnstileSiteKey ?? undefined} />
         ) : (

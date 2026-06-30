@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getPage, readForms } from "@betttercms/next";
-import { BcmsBlocks } from "@betttercms/next/blocks";
+import { getPage, readForms } from "@bettercms-ai/next";
+import { BcmsBlocks } from "@bettercms-ai/next/blocks";
 import { SiteChrome } from "../components/SiteChrome";
 
 /** Render a CMS page (Home/About/Contact) from the build snapshot, inside the site's nav/footer

@@ -5,7 +5,7 @@
 export default {
   output: "export",
   images: { unoptimized: true },
-  // <BcmsBlocks>/<BcmsForm> are client components; their import of @betttercms/sdk pulls in the
+  // <BcmsBlocks>/<BcmsForm> are client components; their import of @bettercms-ai/sdk pulls in the
   // SDK's Node-only management client (dns/fs). Those paths never run in the browser, so stub the
   // Node builtins out of the client bundle.
   webpack: (config, { isServer }) => {
